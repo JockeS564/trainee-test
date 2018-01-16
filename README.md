@@ -43,5 +43,3 @@ Det finns ett antal lösningar på den här uppgiften på att hitta på GitHub m
 Vår förväntning är att du skriver kod som du själv skulle vilja läsa och förvalta.
 
 
-### Testning av merge request
-
