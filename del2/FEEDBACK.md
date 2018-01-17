@@ -23,25 +23,3 @@ Lösning #2 är att föredra då #1 kan resultera i en onödig minnesanvändning
 Oavsett om det är en dynamisk eller statisk stack så behövs det en extra koll på pop-metoden som undersöker om stacken redan är tom eller inte. Dvs, en pop ska INTE genomföras om stackpekaren redan är på 0, för annars kommer man försöka accessa ett objekt med plats -1, vilket kommer kasta ett undantag. Att föredra är att ha både if-satsen kollar om värdet är större än 0 och annars kasta ett eget undantag likt det access-metoden gör redan nu.  
 
 
-
-
-_______________________________________________________________________________________
-Metoden access(Object item):
-
-
-*****PROBLEM*****
-
-Med nuvarande kod så går den igenom stacken tills den hittar det sökta objektet och returnerar detta, annars kasta ett undantag.
-Problemet är att för varje objekt så genomför den en pop, dvs den tar bort objektet från stacken som den jämför med. Ifall detta objekt är det sökta objektet och det översta objektet i stacken så är ingen skada skedd MEN om det sökta objektet ligger längre ner i stacken, så kommer alla ovanstående objekt att försvinna.
-
-*****LÖSNING*****
-
-Beroende lite på vad syftet med access är så behöver man göra olika mycket förändringar av koden. Om syftet endast är att accessa objektet utan att ta bort den från stacken, så räcker det med att spara stackpekaren i en temporär variabel före själva sökningen. När sen objektet har hittats så återställer man stackpekaren före man returnerar objektet. På så sätt förloras inte objekten ovanför det funna objektet. 
-Däremot, är syftet att ta bort från stacken och returnera (som det verkar lite grann nu med pop anropet), så behöver man ändra om data-strukturen i sig. 
-För närvarande är det en enkel lista och en plats-pekare, men vill man ta bort ett element i mitten av en lista så behöver man en enkel-LÄNKAD lista (alt. dubbel-länkad om man så vill). Detta för att kunna omdirigera objekten före och efter det aktuella objektet som tas bort, till att kopplas samman med varandra.
-
-A -> B -> C
-
-Om objektet B ska tas bort så behöver man koppla A direkt till C. 
-För närvarande går detta inte med den enkla stackpekaren eftersom B fortfarande finns i minnet trots att det är skräp. 
-Istället för en Objekt-array kan man använda en LinkedList<Objekt> som har egen-implementerade metoder för att ta bort objekt och på specifika platser. Man skulle då kunna ha kvar stackpekaren som nu. 
